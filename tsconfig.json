@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "rootDir": "./src",
+    "target": "es5", // 指定 ECMAScript 目标版本
+    "module": "ESNext", //指定生成那个模块的代码
+    "strict": true, // 开启所有的严格检查配置
+    "esModuleInterop": true,
+    "outDir": "dist",
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "checkJs": true, // 检查js文件
+    "allowJs": true, // 允许编译js文件
+    "skipLibCheck": true, // 跳过所有声明文件的检查
+    "jsx": "react", // 在 tsx文件中支持jsx
+    "noEmit": true, // 禁止编译器生成文件
+    "moduleResolution": "node", // 将模块解析模式设置为 node 模式
+    "paths": {
+      "@/": ["./src/"]
+    }
+  },
+  "include": ["src"],
+  "exclude": ["node_module", "dist"]
+}
