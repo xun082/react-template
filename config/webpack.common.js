@@ -8,6 +8,8 @@ const {
 
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const { DefinePlugin } = require("webpack");
+
 module.exports = {
   entry: {
     index: path.join(SRC_PATH, "index.tsx"),
@@ -35,6 +37,9 @@ module.exports = {
         options: {
           cacheDirectory: true,
           cacheCompression: false, // 缓存不压缩
+          plugins: [
+            IS_DEVELOPMENT && "react-refresh/babel", // 激活 js 的 HMR
+          ],
         },
         exclude: [/node_modules/, /public/, /(.|_)min\.js$/],
       },
@@ -92,11 +97,9 @@ module.exports = {
         minifyJS: true, // 压缩 HTML 中出现的 JS 代码
       },
     }),
+    // 定义全局常量
+    new DefinePlugin({
+      BASE_URL: '"./"',
+    }),
   ],
-  resolve: {
-    extensions: [".js", ".json", ".jsx", ".ts", ".css", ".tsx"],
-    alias: {
-      "@": path.resolve(__dirname, "../src"),
-    },
-  },
 };

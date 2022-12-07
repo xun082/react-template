@@ -10,11 +10,12 @@
     "checkJs": true, // 检查js文件
     "allowJs": true, // 允许编译js文件
     "skipLibCheck": true, // 跳过所有声明文件的检查
-    "jsx": "react", // 在 tsx文件中支持jsx
+    "jsx": "react-jsx",
     "noEmit": true, // 禁止编译器生成文件
     "moduleResolution": "node", // 将模块解析模式设置为 node 模式
+    "baseUrl": "./",
     "paths": {
-      "@/": ["./src/"]
+      "@/*": ["./src/*"]
     }
   },
   "include": ["src"],
