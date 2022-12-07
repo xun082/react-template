@@ -4,11 +4,11 @@ const webpackCommonConfig = require("./webpack.common");
 
 module.exports = merge(webpackCommonConfig, {
   mode: "development",
-  //dev环境开启代码代码同步行数
-  devtool: "eval-cheap-module-source-map",
+  devtool: "source-map",
   devServer: {
+    open: true,
     host: "localhost",
-    port: 30000,
+    port: 3000,
     hot: true,
     compress: true, // 是否启用 gzip 压缩
   },
