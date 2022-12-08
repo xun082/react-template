@@ -2,6 +2,7 @@ const { merge } = require("webpack-merge");
 const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
 const webpackCommonConfig = require("./webpack.common");
 const path = require("path");
+const EslintWebpackPlugin = require("eslint-webpack-plugin");
 
 module.exports = merge(webpackCommonConfig, {
   mode: "development",
@@ -20,5 +21,16 @@ module.exports = merge(webpackCommonConfig, {
       "@": path.resolve(__dirname, "../src"),
     },
   },
-  plugins: [new ReactRefreshWebpackPlugin()],
+  plugins: [
+    new ReactRefreshWebpackPlugin(),
+    new EslintWebpackPlugin({
+      context: path.resolve(__dirname, "../src"),
+      exclude: "node_,modules",
+      cache: true,
+      cacheLocation: path.resolve(
+        __dirname,
+        "../node_modules/.cache/.eslintCache"
+      ),
+    }),
+  ],
 });

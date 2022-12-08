@@ -6,8 +6,14 @@ const Title = lazy(() => import("@/pages/title"));
 
 const RouterConfig: React.FC = () => {
   return useRoutes([
-    { path: "/", element: <Home /> },
-    { path: "title", element: <Title /> },
+    {
+      path: "/",
+      element: <Home />,
+    },
+    {
+      path: "title",
+      element: <Title />,
+    },
   ]);
 };
 
