@@ -25,7 +25,7 @@ module.exports = merge(webpackCommonConfig, {
     new ReactRefreshWebpackPlugin(),
     new EslintWebpackPlugin({
       context: path.resolve(__dirname, "../src"),
-      exclude: "node_,modules",
+      exclude: "node_modules",
       cache: true,
       cacheLocation: path.resolve(
         __dirname,

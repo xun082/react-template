@@ -11,7 +11,7 @@ const RouterConfig: React.FC = () => {
       element: <Home />,
     },
     {
-      path: "title",
+      path: "/title",
       element: <Title />,
     },
   ]);
