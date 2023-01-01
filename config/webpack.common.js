@@ -1,3 +1,7 @@
+/**
+ * @type {import('webpack').Configuration}
+ */
+
 const {
   SRC_PATH,
   DIST_PATH,
@@ -31,7 +35,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(tsx?|js)$/,
+        test: /\.(tsx?|jsx?)$/,
         include: [SRC_PATH],
         loader: "babel-loader",
         options: {
@@ -43,6 +47,7 @@ module.exports = {
         },
         exclude: [/node_modules/, /public/, /(.|_)min\.js$/],
       },
+
       {
         test: /\.css$|\.scss$/i,
         include: [SRC_PATH],

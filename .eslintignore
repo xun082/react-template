@@ -4,3 +4,5 @@ coverage
 dist
 env
 postcss.config.js
+config
+babel.config.js
