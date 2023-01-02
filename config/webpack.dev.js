@@ -10,14 +10,14 @@ const ESLintPlugin = require("eslint-webpack-plugin");
 const CircularDependencyPlugin = require("circular-dependency-plugin");
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 const { SRC_PATH, IS_DEVELOPMENT } = require("./util/constants");
+const portFinder = require("portfinder");
 
-module.exports = merge(webpackCommonConfig, {
+const devWebpackConfig = merge(webpackCommonConfig, {
   mode: "development",
   devtool: "source-map",
   devServer: {
     open: true,
     host: "localhost",
-    port: 3000,
     hot: true,
     compress: true, // 是否启用 gzip 压缩
     historyApiFallback: true, // 解决前端路由刷新404现象
@@ -71,4 +71,18 @@ module.exports = merge(webpackCommonConfig, {
       cwd: process.cwd(),
     }),
   ],
+});
+
+module.exports = new Promise((resolve, reject) => {
+  portFinder.getPort(
+    {
+      port: 3000, // 默认端口为3000,如果占用了则加一,以此类推
+      stopPort: 30000,
+    },
+    (error, port) => {
+      if (error) reject(error);
+      devWebpackConfig.devServer.port = port;
+      resolve(devWebpackConfig);
+    }
+  );
 });
