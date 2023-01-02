@@ -94,13 +94,23 @@ module.exports = {
       template: path.join(PUBLIC_PATH, "index.html"),
       filename: "index.html",
       title: "moment",
-      inject: true, // js文件存放的位置,bode里面的,head
-      minify: {
-        removeComments: true, // 删除注释
-        collapseWhitespace: true,
-        minifyCSS: true, // 压缩 HTML 中的 css 代码
-        minifyJS: true, // 压缩 HTML 中出现的 JS 代码
-      },
+      inject: true, // js引入在body里面
+      hash: true,
+      minify: IS_DEVELOPMENT
+        ? false
+        : {
+            // https://github.com/terser/html-minifier-terser#options-quick-reference
+            removeComments: true, // 删除注释
+            collapseWhitespace: true, //是否去除空格
+            minifyCSS: true, // 压缩 HTML 中的 css 代码
+            minifyJS: true, // 压缩 HTML 中出现的 JS 代码
+            caseSensitive: true, // 区分大小写
+            removeRedundantAttributes: true, // 当值与默认值匹配时删除属性。
+            removeEmptyAttributes: true, // 删除所有只有空白值的属性
+            removeStyleLinkTypeAttributes: true, // 从样式和链接标签中删除type="text/css"。其他类型属性值保持不变
+            removeScriptTypeAttributes: true, // 从脚本标签中删除type="text/javascript"其他类型属性值保持不变
+            useShortDoctype: true, // 将文档类型替换为短(HTML5)文档类型
+          },
     }),
     // 定义全局常量
     new DefinePlugin({
