@@ -7,7 +7,9 @@ const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin"
 const webpackCommonConfig = require("./webpack.common");
 const path = require("path");
 const ESLintPlugin = require("eslint-webpack-plugin");
+const CircularDependencyPlugin = require("circular-dependency-plugin");
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
+const { SRC_PATH, IS_DEVELOPMENT } = require("./util/constants");
 
 module.exports = merge(webpackCommonConfig, {
   mode: "development",
@@ -26,6 +28,23 @@ module.exports = merge(webpackCommonConfig, {
       "@": path.resolve(__dirname, "../src"),
     },
   },
+  module: {
+    rules: [
+      {
+        test: /\.(tsx?|jsx?)$/,
+        include: [SRC_PATH],
+        loader: "babel-loader",
+        options: {
+          cacheDirectory: true,
+          cacheCompression: false, // 缓存不压缩
+          plugins: [
+            IS_DEVELOPMENT && "react-refresh/babel", // 激活 js 的 HMR
+          ],
+        },
+        exclude: [/node_modules/, /public/, /(.|_)min\.js$/],
+      },
+    ],
+  },
   plugins: [
     new ReactRefreshWebpackPlugin(),
     // 解决babel-loader无法检查ts类型错误问题
@@ -42,6 +61,14 @@ module.exports = merge(webpackCommonConfig, {
         __dirname,
         "../node_modules/.cache/.eslintCache"
       ),
+    }),
+    //  解决模块循环引入问题
+    new CircularDependencyPlugin({
+      exclude: /node_modules/,
+      include: /src/,
+      failOnError: true,
+      allowAsyncCycles: false,
+      cwd: process.cwd(),
     }),
   ],
 });

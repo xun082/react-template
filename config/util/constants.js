@@ -16,6 +16,7 @@ const NODE_ENV = getEnv();
 const IS_PRODUCTION = NODE_ENV === "prod";
 //是否是开发环境
 const IS_DEVELOPMENT = NODE_ENV === "development";
+
 module.exports = {
   DIST_PATH,
   SRC_PATH,

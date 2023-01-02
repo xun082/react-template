@@ -35,20 +35,6 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(tsx?|jsx?)$/,
-        include: [SRC_PATH],
-        loader: "babel-loader",
-        options: {
-          cacheDirectory: true,
-          cacheCompression: false, // 缓存不压缩
-          plugins: [
-            IS_DEVELOPMENT && "react-refresh/babel", // 激活 js 的 HMR
-          ],
-        },
-        exclude: [/node_modules/, /public/, /(.|_)min\.js$/],
-      },
-
-      {
         test: /\.css$|\.scss$/i,
         include: [SRC_PATH],
         exclude: /node_module/,
@@ -57,8 +43,18 @@ module.exports = {
           {
             loader: "css-loader",
             options: {
-              modules: true,
-              sourceMap: !IS_PRODUCTION,
+              sourceMap: !IS_PRODUCTION, // 在开发环境下开启
+              modules: {
+                mode: "local",
+                auto: true,
+                exportGlobals: true,
+                localIdentName: IS_DEVELOPMENT
+                  ? "[path][name]__[local]--[hash:base64:5]"
+                  : "[local]--[hash:base64:5]",
+                localIdentContext: SRC_PATH,
+                exportLocalsConvention: "camelCase",
+              },
+              importLoaders: 2,
             },
           },
           "postcss-loader",
@@ -67,7 +63,7 @@ module.exports = {
       },
       // 处理图片
       {
-        test: /\.(jpe?g|png|gif|webp|svg)$/,
+        test: /\.(jpe?g|png|gif|webp|svg|mp4)$/,
         type: "asset",
         // 文件生成路径
         generator: {
