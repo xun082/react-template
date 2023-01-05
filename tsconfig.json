@@ -2,7 +2,7 @@
   "compilerOptions": {
     "rootDir": "./src",
     "target": "es5", // 指定 ECMAScript 目标版本
-    "module": "ESNext", //指定生成那个模块的代码
+    "module": "CommonJS", //指定生成那个模块的代码
     "strict": true, // 开启所有的严格检查配置
     "esModuleInterop": true,
     "outDir": "dist",

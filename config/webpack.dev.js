@@ -22,29 +22,6 @@ const devWebpackConfig = merge(webpackCommonConfig, {
     compress: true, // 是否启用 gzip 压缩
     historyApiFallback: true, // 解决前端路由刷新404现象
   },
-  resolve: {
-    extensions: [".js", ".json", ".jsx", ".ts", ".css", ".tsx"],
-    alias: {
-      "@": path.resolve(__dirname, "../src"),
-    },
-  },
-  module: {
-    rules: [
-      {
-        test: /\.(tsx?|jsx?)$/,
-        include: [SRC_PATH],
-        loader: "babel-loader",
-        options: {
-          cacheDirectory: true,
-          cacheCompression: false, // 缓存不压缩
-          plugins: [
-            IS_DEVELOPMENT && "react-refresh/babel", // 激活 js 的 HMR
-          ],
-        },
-        exclude: [/node_modules/, /public/, /(.|_)min\.js$/],
-      },
-    ],
-  },
   plugins: [
     new ReactRefreshWebpackPlugin(),
     // 解决babel-loader无法检查ts类型错误问题

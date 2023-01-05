@@ -13,6 +13,7 @@ const {
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { DefinePlugin } = require("webpack");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
   entry: {
@@ -20,7 +21,6 @@ module.exports = {
   },
   output: {
     path: DIST_PATH,
-    globalObject: "this",
     // 图片、字体资源
     assetModuleFilename: "assets/[hash][ext][query]",
     filename: IS_DEVELOPMENT
@@ -83,7 +83,27 @@ module.exports = {
           filename: "./assets/fonts/[hash][ext][query]",
         },
       },
+      // 处理js
+      {
+        test: /\.(tsx?|jsx?)$/,
+        include: [SRC_PATH],
+        loader: "babel-loader",
+        options: {
+          cacheDirectory: true,
+          cacheCompression: false, // 缓存不压缩
+          plugins: [
+            IS_DEVELOPMENT && "react-refresh/babel", // 激活 js 的 HMR
+          ].filter(Boolean),
+        },
+        exclude: [/node_modules/, /public/, /(.|_)min\.js$/],
+      },
     ],
+  },
+  resolve: {
+    extensions: [".js", ".json", ".jsx", ".ts", ".css", ".tsx"],
+    alias: {
+      "@": path.resolve(__dirname, "../src"),
+    },
   },
   plugins: [
     new HtmlWebpackPlugin({

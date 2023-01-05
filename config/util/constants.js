@@ -13,7 +13,7 @@ const ROOT_PATH = path.resolve(__dirname, "../../");
 
 const NODE_ENV = getEnv();
 //是否是生产环境
-const IS_PRODUCTION = NODE_ENV === "prod";
+const IS_PRODUCTION = NODE_ENV === "production";
 //是否是开发环境
 const IS_DEVELOPMENT = NODE_ENV === "development";
 
