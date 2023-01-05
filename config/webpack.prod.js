@@ -14,6 +14,8 @@ const path = require("path");
 const { WebpackManifestPlugin } = require("webpack-manifest-plugin");
 
 module.exports = merge(webpackCommonConfig, {
+  mode: "production",
+  devtool: "false",
   plugins: [
     new MiniCssExtractPlugin({
       filename: "static/css/[name].[contenthash].css",
@@ -59,4 +61,11 @@ module.exports = merge(webpackCommonConfig, {
       },
     }),
   ],
+
+  // 如果一个资源超过则提示
+  performance: {
+    hints: false,
+    maxEntrypointSize: 512000,
+    maxAssetSize: 512000,
+  },
 });
