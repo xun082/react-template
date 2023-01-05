@@ -25,12 +25,12 @@ module.exports = {
     // 图片、字体资源
     assetModuleFilename: "assets/[hash][ext][query]",
     filename: IS_DEVELOPMENT
-      ? "js/[name].bundle.js"
-      : "js/[name].[contenthash:8].bundle.js",
+      ? "static/js/[name].bundle.js"
+      : "static/js/[name].[contenthash:8].bundle.js",
     // 动态导入资源
     chunkFilename: IS_DEVELOPMENT
-      ? "js/[name].chunk.js"
-      : "js/[name].[contenthash:8].chunk.js",
+      ? "static/js/[name].chunk.js"
+      : "static/js/[name].[contenthash:8].chunk.js",
     clean: true,
   },
   module: {
