@@ -1,3 +1,5 @@
+const plugins = [[require("babel-plugin-await-add-trycatch")]];
+
 module.exports = {
   presets: [
     [
@@ -13,4 +15,5 @@ module.exports = {
   compact: true,
   // 魔法注释,用于分包
   comments: true,
+  plugins: process.env.NODE_ENV === "production" ? [...plugins] : plugins,
 };

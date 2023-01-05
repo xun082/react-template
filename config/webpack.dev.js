@@ -9,46 +9,53 @@ const path = require("path");
 const ESLintPlugin = require("eslint-webpack-plugin");
 const CircularDependencyPlugin = require("circular-dependency-plugin");
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
-const { SRC_PATH, IS_DEVELOPMENT } = require("./util/constants");
 const portFinder = require("portfinder");
 
-const devWebpackConfig = merge(webpackCommonConfig, {
-  mode: "development",
-  devtool: "source-map",
-  devServer: {
-    open: true,
-    host: "localhost",
-    hot: true,
-    compress: true, // 是否启用 gzip 压缩
-    historyApiFallback: true, // 解决前端路由刷新404现象
+//  优化效率工具 速度分析
+const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
+const smp = new SpeedMeasurePlugin();
+
+const devWebpackConfig = merge(
+  webpackCommonConfig,
+  {
+    mode: "development",
+    devtool: "source-map",
+    devServer: {
+      open: true,
+      host: "localhost",
+      hot: true,
+      compress: true, // 是否启用 gzip 压缩
+      historyApiFallback: true, // 解决前端路由刷新404现象
+    },
+    plugins: [
+      new ReactRefreshWebpackPlugin(),
+      // 解决babel-loader无法检查ts类型错误问题
+      new ForkTsCheckerWebpackPlugin({
+        async: false,
+      }),
+      new ESLintPlugin({
+        extensions: [".js", ".jsx", ".ts", ".tsx"],
+        context: path.resolve(__dirname, "../src"),
+        exclude: "node_modules",
+        cache: true, // 开启缓存
+        // 缓存目录
+        cacheLocation: path.resolve(
+          __dirname,
+          "../node_modules/.cache/.eslintCache"
+        ),
+      }),
+      //  解决模块循环引入问题
+      new CircularDependencyPlugin({
+        exclude: /node_modules/,
+        include: /src/,
+        failOnError: true,
+        allowAsyncCycles: false,
+        cwd: process.cwd(),
+      }),
+    ],
   },
-  plugins: [
-    new ReactRefreshWebpackPlugin(),
-    // 解决babel-loader无法检查ts类型错误问题
-    new ForkTsCheckerWebpackPlugin({
-      async: false,
-    }),
-    new ESLintPlugin({
-      extensions: [".js", ".jsx", ".ts", ".tsx"],
-      context: path.resolve(__dirname, "../src"),
-      exclude: "node_modules",
-      cache: true, // 开启缓存
-      // 缓存目录
-      cacheLocation: path.resolve(
-        __dirname,
-        "../node_modules/.cache/.eslintCache"
-      ),
-    }),
-    //  解决模块循环引入问题
-    new CircularDependencyPlugin({
-      exclude: /node_modules/,
-      include: /src/,
-      failOnError: true,
-      allowAsyncCycles: false,
-      cwd: process.cwd(),
-    }),
-  ],
-});
+  smp.wrap({})
+);
 
 module.exports = new Promise((resolve, reject) => {
   portFinder.getPort(

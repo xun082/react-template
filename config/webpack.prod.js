@@ -12,10 +12,12 @@ const glob = require("glob");
 const { PurgeCSSPlugin } = require("purgecss-webpack-plugin");
 const path = require("path");
 const { WebpackManifestPlugin } = require("webpack-manifest-plugin");
+const BundleAnalyzerPlugin =
+  require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 
 module.exports = merge(webpackCommonConfig, {
   mode: "production",
-  devtool: "false",
+  devtool: "hidden-source-map",
   plugins: [
     new MiniCssExtractPlugin({
       filename: "static/css/[name].[contenthash].css",
@@ -60,6 +62,8 @@ module.exports = merge(webpackCommonConfig, {
         };
       },
     }),
+    // 打包体积分析
+    new BundleAnalyzerPlugin(),
   ],
 
   // 如果一个资源超过则提示
