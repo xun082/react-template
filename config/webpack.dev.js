@@ -54,6 +54,14 @@ const devWebpackConfig = merge(
         cwd: process.cwd(),
       }),
     ],
+    optimization: {
+      removeAvailableModules: false,
+      removeEmptyChunks: false,
+      splitChunks: false,
+      minimize: false,
+      concatenateModules: false,
+      usedExports: false,
+    },
   },
   smp.wrap({})
 );

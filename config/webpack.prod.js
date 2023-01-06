@@ -17,10 +17,11 @@ const BundleAnalyzerPlugin =
 const TerserPlugin = require("terser-webpack-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const HtmlMinimizerPlugin = require("html-minimizer-webpack-plugin");
+const CompressionWebpackPlugin = require("compression-webpack-plugin");
+const { gzip } = require("zlib");
 
 module.exports = merge(webpackCommonConfig, {
   mode: "production",
-  devtool: "hidden-source-map",
   plugins: [
     new MiniCssExtractPlugin({
       filename: "static/css/[name].[contenthash].css",
@@ -44,8 +45,9 @@ module.exports = merge(webpackCommonConfig, {
     // 清除没有使用的css代码
     // TODO
     new PurgeCSSPlugin({
-      paths: glob.sync(`${path.join(__dirname, "src")}/**/*`, { nodir: true }),
-      only: ["bundle", "vendor"],
+      paths: glob.sync(`${path.join(__dirname, "./src")}/**/*`, {
+        nodir: true,
+      }),
     }),
     // 生成目录文件
     new WebpackManifestPlugin({
@@ -67,6 +69,14 @@ module.exports = merge(webpackCommonConfig, {
     }),
     // 打包体积分析
     new BundleAnalyzerPlugin(),
+    new CompressionWebpackPlugin({
+      filename: "[path][base].gz",
+      algorithm: "gzip",
+      test: /\.js$|\.json$|\.css/,
+      threshold: 10240, // 只有大小大于该值的资源会被处理
+      minRatio: 0.8, // 只有压缩率小于这个值的资源才会被处理
+      algorithm: gzip,
+    }),
   ],
   performance: {
     // 如果一个资源超过则提示

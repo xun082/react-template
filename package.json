@@ -31,6 +31,7 @@
     "babel-plugin-transform-remove-consoles": "^1.0.7",
     "circular-dependency-plugin": "^5.2.2",
     "clean-webpack-plugin": "^4.0.0",
+    "compression-webpack-plugin": "^10.0.0",
     "copy-webpack-plugin": "^11.0.0",
     "core-js": "^3.27.1",
     "cross-env": "^7.0.3",

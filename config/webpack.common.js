@@ -111,7 +111,7 @@ module.exports = {
       template: path.join(PUBLIC_PATH, "index.html"),
       filename: "index.html",
       title: "moment",
-      inject: true, // js引入在body里面
+      inject: true,
       hash: true,
       minify: IS_DEVELOPMENT
         ? false
