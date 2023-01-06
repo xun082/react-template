@@ -1,7 +1,7 @@
 /**
  * @type {import('webpack').Configuration}
  */
-const { PUBLIC_PATH, SRC_PATH } = require("./util/constants");
+const { PUBLIC_PATH } = require("./util/constants");
 const webpackCommonConfig = require("./webpack.common");
 const { merge } = require("webpack-merge");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");

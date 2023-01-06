@@ -27,6 +27,7 @@
     "autoprefixer": "^10.4.13",
     "babel-loader": "^9.1.0",
     "babel-plugin-await-add-trycatch": "^1.0.1",
+    "babel-plugin-transform-remove-console": "^6.9.4",
     "babel-plugin-transform-remove-consoles": "^1.0.7",
     "circular-dependency-plugin": "^5.2.2",
     "clean-webpack-plugin": "^4.0.0",
