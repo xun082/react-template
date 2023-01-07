@@ -32,6 +32,8 @@ module.exports = {
       ? "static/js/[name].chunk.js"
       : "static/js/[name].[contenthash:8].chunk.js",
     clean: true,
+    // 关闭 Webpack 在输出的 bundle 中生成路径信息
+    pathinfo: false,
   },
   module: {
     rules: [

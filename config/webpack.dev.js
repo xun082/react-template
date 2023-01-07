@@ -55,9 +55,11 @@ const devWebpackConfig = merge(
       }),
     ],
     optimization: {
+      // 这些优化适用于小型代码库，但是在大型代码库中却非常耗费性能
       removeAvailableModules: false,
       removeEmptyChunks: false,
       splitChunks: false,
+
       minimize: false,
       concatenateModules: false,
       usedExports: false,
