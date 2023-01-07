@@ -130,4 +130,11 @@ module.exports = merge(webpackCommonConfig, {
       name: "runtime",
     },
   },
+  externals: {
+    react: "react",
+    redux: "redux",
+    "react-dom": "ReactDOM",
+    "react-router-dom": "ReactRouterDOM",
+    axios: "axios",
+  },
 });
