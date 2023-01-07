@@ -10,6 +10,7 @@ const ESLintPlugin = require("eslint-webpack-plugin");
 const CircularDependencyPlugin = require("circular-dependency-plugin");
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 const portFinder = require("portfinder");
+const WebpackBar = require("webpackbar");
 
 //  优化效率工具 速度分析
 const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
@@ -18,6 +19,7 @@ const smp = new SpeedMeasurePlugin();
 const devWebpackConfig = merge(
   webpackCommonConfig,
   {
+    stats: "errors-only",
     mode: "development",
     devtool: "source-map",
     devServer: {
@@ -52,6 +54,12 @@ const devWebpackConfig = merge(
         failOnError: true,
         allowAsyncCycles: false,
         cwd: process.cwd(),
+      }),
+      // 进度条
+      new WebpackBar({
+        color: "green",
+        basic: false,
+        profile: false,
       }),
     ],
     optimization: {

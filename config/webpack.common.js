@@ -14,7 +14,6 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { DefinePlugin } = require("webpack");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const WebpackBar = require("webpackbar");
 
 module.exports = {
   entry: {
@@ -134,12 +133,6 @@ module.exports = {
     // 定义全局常量
     new DefinePlugin({
       BASE_URL: '"./"',
-    }),
-    // 进度条
-    new WebpackBar({
-      color: "green",
-      basic: false,
-      profile: false,
     }),
   ],
 };
