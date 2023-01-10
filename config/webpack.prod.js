@@ -8,7 +8,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const copyWebpackPlugin = require("copy-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
-const glob = require("glob");
+const globAll = require("glob-all");
 const { PurgeCSSPlugin } = require("purgecss-webpack-plugin");
 const path = require("path");
 const { WebpackManifestPlugin } = require("webpack-manifest-plugin");
@@ -51,10 +51,13 @@ module.exports = merge(
       // 清除没有使用的css代码
       // TODO
       new PurgeCSSPlugin({
-        paths: glob.sync(`${path.join(__dirname, "src")}/**/*`, {
-          nodir: true,
-        }),
-        only: ["bundle", "vendor"],
+        paths: globAll.sync([
+          `${path.join(__dirname, "../src")}/**/*.tsx`,
+          `${path.join(__dirname, "../public")}/index.html`,
+        ]),
+        // safelist: {
+        //   deep: [/css__module__/],
+        // },
       }),
       // 生成目录文件
       new WebpackManifestPlugin({
@@ -148,3 +151,9 @@ module.exports = merge(
   },
   smp.wrap({})
 );
+
+// const result = globAll.sync([
+//   `${path.join(__dirname, "../src")}/**/*.tsx`,
+//   `${path.join(__dirname, "../public")}/index.html`,
+// ]);
+// console.log(result);
