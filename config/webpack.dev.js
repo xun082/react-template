@@ -31,14 +31,6 @@ const devWebpackConfig = merge(webpackCommonConfig, {
   },
 
   plugins: [
-    new FriendlyErrorsWebpackPlugin({
-      compilationSuccessInfo: {
-        messages: ["You application is running here http://localhost:3000"],
-        notes: [
-          "Some additional notes to be displayed upon successful compilation",
-        ],
-      },
-    }),
     new ReactRefreshWebpackPlugin(),
     // 解决babel-loader无法检查ts类型错误问题
     new ForkTsCheckerWebpackPlugin({
@@ -91,7 +83,21 @@ module.exports = new Promise((resolve, reject) => {
     (error, port) => {
       if (error) reject(error);
       devWebpackConfig.devServer.port = port;
+      devWebpackConfig.plugins.push(
+        new FriendlyErrorsWebpackPlugin({
+          compilationSuccessInfo: {
+            messages: [
+              `You application is running here http://localhost:${port}`,
+            ],
+            notes: [
+              "Some additional notes to be displayed upon successful compilation",
+            ],
+          },
+        })
+      );
       resolve(devWebpackConfig);
     }
   );
 });
+
+// console.log(devWebpackConfig.devServer.port);
