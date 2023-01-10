@@ -51,9 +51,10 @@ module.exports = merge(
       // 清除没有使用的css代码
       // TODO
       new PurgeCSSPlugin({
-        paths: glob.sync(`${path.join(__dirname, "./src")}/**/*`, {
+        paths: glob.sync(`${path.join(__dirname, "src")}/**/*`, {
           nodir: true,
         }),
+        only: ["bundle", "vendor"],
       }),
       // 生成目录文件
       new WebpackManifestPlugin({

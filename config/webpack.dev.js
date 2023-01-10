@@ -10,7 +10,6 @@ const ESLintPlugin = require("eslint-webpack-plugin");
 const CircularDependencyPlugin = require("circular-dependency-plugin");
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 const portFinder = require("portfinder");
-const WebpackBar = require("webpackbar");
 
 const FriendlyErrorsWebpackPlugin = require("@nuxt/friendly-errors-webpack-plugin");
 
@@ -54,12 +53,6 @@ const devWebpackConfig = merge(webpackCommonConfig, {
       failOnError: true,
       allowAsyncCycles: false,
       cwd: process.cwd(),
-    }),
-    // 进度条
-    new WebpackBar({
-      color: "green",
-      basic: false,
-      profile: false,
     }),
   ],
   optimization: {
