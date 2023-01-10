@@ -12,73 +12,75 @@ const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 const portFinder = require("portfinder");
 const WebpackBar = require("webpackbar");
 
-//  优化效率工具 速度分析
-const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
-const smp = new SpeedMeasurePlugin();
+const FriendlyErrorsWebpackPlugin = require("@nuxt/friendly-errors-webpack-plugin");
 
-const devWebpackConfig = merge(
-  webpackCommonConfig,
-  {
-    stats: "errors-only",
-    mode: "development",
-    devtool: "source-map",
-    devServer: {
-      open: true,
-      host: "localhost",
-      hot: true,
-      compress: true, // 是否启用 gzip 压缩
-      historyApiFallback: true, // 解决前端路由刷新404现象
-      client: {
-        logging: "info",
-        overlay: false,
-      },
-    },
-
-    plugins: [
-      new ReactRefreshWebpackPlugin(),
-      // 解决babel-loader无法检查ts类型错误问题
-      new ForkTsCheckerWebpackPlugin({
-        async: false,
-      }),
-      new ESLintPlugin({
-        extensions: [".js", ".jsx", ".ts", ".tsx"],
-        context: path.resolve(__dirname, "../src"),
-        exclude: "node_modules",
-        cache: true, // 开启缓存
-        // 缓存目录
-        cacheLocation: path.resolve(
-          __dirname,
-          "../node_modules/.cache/.eslintCache"
-        ),
-      }),
-      //  解决模块循环引入问题
-      new CircularDependencyPlugin({
-        exclude: /node_modules/,
-        include: /src/,
-        failOnError: true,
-        allowAsyncCycles: false,
-        cwd: process.cwd(),
-      }),
-      // 进度条
-      new WebpackBar({
-        color: "green",
-        basic: false,
-        profile: false,
-      }),
-    ],
-    optimization: {
-      // 这些优化适用于小型代码库，但是在大型代码库中却非常耗费性能
-      removeAvailableModules: false,
-      removeEmptyChunks: false,
-      splitChunks: false,
-
-      minimize: false,
-      concatenateModules: false,
-      usedExports: false,
+const devWebpackConfig = merge(webpackCommonConfig, {
+  stats: "errors-only",
+  mode: "development",
+  devtool: "source-map",
+  devServer: {
+    open: true,
+    host: "localhost",
+    hot: true,
+    compress: true, // 是否启用 gzip 压缩
+    historyApiFallback: true, // 解决前端路由刷新404现象
+    client: {
+      logging: "info",
+      overlay: false,
     },
   },
-  smp.wrap({})
-);
+
+  plugins: [
+    new FriendlyErrorsWebpackPlugin({
+      compilationSuccessInfo: {
+        messages: ["You application is running here http://localhost:3000"],
+        notes: [
+          "Some additional notes to be displayed upon successful compilation",
+        ],
+      },
+    }),
+    new ReactRefreshWebpackPlugin(),
+    // 解决babel-loader无法检查ts类型错误问题
+    new ForkTsCheckerWebpackPlugin({
+      async: false,
+    }),
+    new ESLintPlugin({
+      extensions: [".js", ".jsx", ".ts", ".tsx"],
+      context: path.resolve(__dirname, "../src"),
+      exclude: "node_modules",
+      cache: true, // 开启缓存
+      // 缓存目录
+      cacheLocation: path.resolve(
+        __dirname,
+        "../node_modules/.cache/.eslintCache"
+      ),
+    }),
+    //  解决模块循环引入问题
+    new CircularDependencyPlugin({
+      exclude: /node_modules/,
+      include: /src/,
+      failOnError: true,
+      allowAsyncCycles: false,
+      cwd: process.cwd(),
+    }),
+    // 进度条
+    new WebpackBar({
+      color: "green",
+      basic: false,
+      profile: false,
+    }),
+  ],
+  optimization: {
+    // 这些优化适用于小型代码库，但是在大型代码库中却非常耗费性能
+    removeAvailableModules: false,
+    removeEmptyChunks: false,
+    splitChunks: false,
+
+    minimize: false,
+    concatenateModules: false,
+    usedExports: false,
+  },
+});
 
 module.exports = new Promise((resolve, reject) => {
   portFinder.getPort(
