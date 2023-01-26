@@ -24,6 +24,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["src", "typed-css.d.ts"],
+  "include": ["src", "src/typed-css.d.ts"],
   "exclude": ["node_module", "dist"]
 }

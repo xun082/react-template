@@ -55,9 +55,9 @@ module.exports = merge(
           `${path.join(__dirname, "../src")}/**/*.tsx`,
           `${path.join(__dirname, "../public")}/index.html`,
         ]),
-        // safelist: {
-        //   deep: [/css__module__/],
-        // },
+        safelist: {
+          deep: [/css__module__/],
+        },
       }),
       // 生成目录文件
       new WebpackManifestPlugin({
@@ -68,7 +68,7 @@ module.exports = merge(
             return manifest;
           }, seed);
           const entrypointFiles = entryPoints.index.filter(
-            (fileName) => !fileName.endsWith(".map")
+            fileName => !fileName.endsWith(".map"),
           );
 
           return {
@@ -149,11 +149,7 @@ module.exports = merge(
       axios: "axios",
     },
   },
-  smp.wrap({})
+  smp.wrap({}),
 );
 
-// const result = globAll.sync([
-//   `${path.join(__dirname, "../src")}/**/*.tsx`,
-//   `${path.join(__dirname, "../public")}/index.html`,
-// ]);
-// console.log(result);
+
