@@ -108,6 +108,7 @@ module.exports = merge(webpackCommonConfig, {
           compress: {
             arguments: false,
             dead_code: true,
+            pure_funcs: ["console.log"], // 删除console.log
           },
         },
       }),
