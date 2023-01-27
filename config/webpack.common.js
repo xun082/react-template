@@ -17,6 +17,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const WebpackBar = require("webpackbar");
 
 module.exports = {
+  stats: "errors-only",
   entry: {
     index: path.join(SRC_PATH, "index.tsx"),
   },

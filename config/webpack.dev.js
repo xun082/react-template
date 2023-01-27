@@ -14,7 +14,6 @@ const portFinder = require("portfinder");
 const FriendlyErrorsWebpackPlugin = require("@nuxt/friendly-errors-webpack-plugin");
 
 const devWebpackConfig = merge(webpackCommonConfig, {
-  stats: "errors-only",
   mode: "development",
   devtool: "source-map",
   devServer: {
@@ -43,7 +42,7 @@ const devWebpackConfig = merge(webpackCommonConfig, {
       // 缓存目录
       cacheLocation: path.resolve(
         __dirname,
-        "../node_modules/.cache/.eslintCache"
+        "../node_modules/.cache/.eslintCache",
       ),
     }),
     //  解决模块循环引入问题
@@ -60,7 +59,7 @@ const devWebpackConfig = merge(webpackCommonConfig, {
     removeAvailableModules: false,
     removeEmptyChunks: false,
     splitChunks: false,
-
+    usedExports: true,
     minimize: false,
     concatenateModules: false,
     usedExports: false,
@@ -86,10 +85,10 @@ module.exports = new Promise((resolve, reject) => {
               "Some additional notes to be displayed upon successful compilation",
             ],
           },
-        })
+        }),
       );
       resolve(devWebpackConfig);
-    }
+    },
   );
 });
 

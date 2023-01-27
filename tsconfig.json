@@ -17,7 +17,7 @@
 
     "noImplicitAny": true, // 在表达式和声明上有隐含的 any类型时报错
     "strictNullChecks": true, // 启用严格的 null 检查
-    "noImplicitThis": true, // 当 this 表达式值为 any 类型的时候，生成一个错误
+    "noImplicitThis": false, // 当 this 表达式值为 any 类型的时候，生成一个错误
 
     "baseUrl": "./",
     "paths": {
