@@ -96,14 +96,19 @@ module.exports = merge(webpackCommonConfig, {
     chunkIds: "named",
     moduleIds: "deterministic", //单独模块id，模块内容变化再更新
     minimize: true,
+    usedExports: true,
     minimizer: [
       new TerserPlugin({
-        test: /\.js(\?.*)?$/i,
+        test: /\.(tsx?|jsx?)$/,
         parallel: true,
         terserOptions: {
           toplevel: true, // 最高级别，删除无用代码
           ie8: true,
           safari10: true,
+          compress: {
+            arguments: false,
+            dead_code: true,
+          },
         },
       }),
       new CssMinimizerPlugin(),
