@@ -1,7 +1,7 @@
 /**
  * @type {import('webpack').Configuration}
  */
-const { PUBLIC_PATH } = require("./util/constants");
+const { PUBLIC_PATH, SRC_PATH } = require("./util/constants");
 const webpackCommonConfig = require("./webpack.common");
 const { merge } = require("webpack-merge");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
@@ -98,6 +98,8 @@ module.exports = merge(webpackCommonConfig, {
     minimizer: [
       new TerserPlugin({
         test: /\.(tsx?|jsx?)$/,
+        include: [SRC_PATH],
+        exclude: /node_module/,
         parallel: true,
         terserOptions: {
           toplevel: true, // 最高级别，删除无用代码
@@ -110,6 +112,7 @@ module.exports = merge(webpackCommonConfig, {
           },
         },
       }),
+      // 优化和缩小 html 和 css
       new CssMinimizerPlugin(),
       new HtmlMinimizerPlugin(),
     ],
