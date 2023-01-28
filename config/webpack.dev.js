@@ -54,16 +54,6 @@ const devWebpackConfig = merge(webpackCommonConfig, {
       cwd: process.cwd(),
     }),
   ],
-  optimization: {
-    // 这些优化适用于小型代码库，但是在大型代码库中却非常耗费性能
-    removeAvailableModules: false,
-    removeEmptyChunks: false,
-    splitChunks: false,
-    usedExports: true,
-    minimize: false,
-    concatenateModules: false,
-    usedExports: false,
-  },
 });
 
 module.exports = new Promise((resolve, reject) => {
@@ -91,5 +81,3 @@ module.exports = new Promise((resolve, reject) => {
     },
   );
 });
-
-
