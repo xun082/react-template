@@ -22,7 +22,7 @@ module.exports = {
     index: path.join(SRC_PATH, "index.tsx"),
   },
   output: {
-    path: DIST_PATH,
+    path: IS_PRODUCTION ? DIST_PATH : undefined,
     // 图片、字体资源
     assetModuleFilename: "assets/[hash][ext][query]",
     filename: IS_DEVELOPMENT
@@ -32,9 +32,9 @@ module.exports = {
     chunkFilename: IS_DEVELOPMENT
       ? "static/js/[name].chunk.js"
       : "static/js/[name].[contenthash:8].chunk.js",
+    // webpack5内置了 clean-webpack-plugin,只需将 clean 设置为 true
     clean: true,
-    // 关闭 Webpack 在输出的 bundle 中生成路径信息
-    pathinfo: false,
+    pathinfo: false, // 关闭 Webpack 在输出的 bundle 中生成路径信息
   },
   module: {
     rules: [

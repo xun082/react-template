@@ -13,7 +13,6 @@ module.exports = {
   compact: true,
   comments: true, // 魔法注释,用于分包
   plugins: [
-    [require("babel-plugin-await-add-trycatch")],
     ["@babel/plugin-transform-runtime"],
     ["@babel/plugin-transform-modules-commonjs"],
     ["@babel/plugin-syntax-dynamic-import"],

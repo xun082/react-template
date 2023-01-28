@@ -6,7 +6,6 @@ const webpackCommonConfig = require("./webpack.common");
 const { merge } = require("webpack-merge");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const copyWebpackPlugin = require("copy-webpack-plugin");
-const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
 const globAll = require("glob-all");
 const { PurgeCSSPlugin } = require("purgecss-webpack-plugin");
@@ -32,7 +31,6 @@ module.exports = merge(webpackCommonConfig, {
       chunkFilename: "static/css/[name].[contenthash].css",
       ignoreOrder: true,
     }),
-    new CleanWebpackPlugin(),
     new copyWebpackPlugin({
       patterns: [
         {
