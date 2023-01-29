@@ -10,8 +10,8 @@ const ESLintPlugin = require("eslint-webpack-plugin");
 const CircularDependencyPlugin = require("circular-dependency-plugin");
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 const portFinder = require("portfinder");
-
 const FriendlyErrorsWebpackPlugin = require("@nuxt/friendly-errors-webpack-plugin");
+const { useTypescript } = require("./util/constants");
 
 const devWebpackConfig = merge(webpackCommonConfig, {
   mode: "development",
@@ -31,9 +31,10 @@ const devWebpackConfig = merge(webpackCommonConfig, {
   plugins: [
     new ReactRefreshWebpackPlugin(),
     // 解决babel-loader无法检查ts类型错误问题
-    new ForkTsCheckerWebpackPlugin({
-      async: false,
-    }),
+    useTypescript &&
+      new ForkTsCheckerWebpackPlugin({
+        async: false,
+      }),
     new ESLintPlugin({
       extensions: [".js", ".jsx", ".ts", ".tsx"],
       context: path.resolve(__dirname, "../src"),
@@ -53,7 +54,7 @@ const devWebpackConfig = merge(webpackCommonConfig, {
       allowAsyncCycles: false,
       cwd: process.cwd(),
     }),
-  ],
+  ].filter(Boolean),
 });
 
 module.exports = new Promise((resolve, reject) => {

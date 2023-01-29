@@ -1,4 +1,5 @@
 const path = require("path");
+const fs = require("fs");
 
 const { getEnv } = require("./helper");
 
@@ -16,6 +17,8 @@ const NODE_ENV = getEnv();
 const IS_PRODUCTION = NODE_ENV === "production";
 //是否是开发环境
 const IS_DEVELOPMENT = NODE_ENV === "development";
+// 是否ts环境
+const useTypescript = fs.existsSync("tsconfig.json");
 
 module.exports = {
   DIST_PATH,
@@ -24,4 +27,5 @@ module.exports = {
   ROOT_PATH,
   IS_PRODUCTION,
   IS_DEVELOPMENT,
+  useTypescript,
 };
