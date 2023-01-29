@@ -6,6 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="<%= BASE_URL %>favicon.ico" />
     <title><%= htmlWebpackPlugin.options.title %></title>
+    <% if (process.env.NODE_ENV === 'production') { %>
+    <script src="https://cdn.bootcdn.net/ajax/libs/react/18.2.0/cjs/react-jsx-dev-runtime.development.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/axios/1.2.5/axios.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/redux/4.2.0/redux.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/react-dom/18.2.0/cjs/react-dom-server-legacy.browser.development.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/react-router-dom/6.8.0/react-router-dom.development.js"></script>
+    <% } %>
   </head>
   <body>
     <div id="root"></div>
