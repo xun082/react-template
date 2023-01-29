@@ -19,10 +19,6 @@ const HtmlMinimizerPlugin = require("html-minimizer-webpack-plugin");
 const CompressionWebpackPlugin = require("compression-webpack-plugin");
 const { gzip } = require("zlib");
 
-//  优化效率工具 速度分析
-const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
-const smp = new SpeedMeasurePlugin();
-
 module.exports = merge(webpackCommonConfig, {
   mode: "production",
   plugins: [
