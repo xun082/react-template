@@ -9,7 +9,7 @@ import "@/assets/styles/normalize";
 
 const App: FunctionComponent = () => {
   let aaa = 1;
-
+  
   return (
     <Provider store={store}>
       <BrowserRouter>
