@@ -8,9 +8,7 @@
     "start": "npm run dev",
     "dev": "cross-env NODE_ENV=development webpack serve --config ./config/webpack.dev.js",
     "build": "cross-env NODE_ENV=production webpack --config ./config/webpack.prod.js",
-    "prepare": "husky install",
-    "commit": "git-cz",
-    "lint": "lint-staged"
+    "prepare": "husky install"
   },
   "keywords": [],
   "author": "",
@@ -42,7 +40,6 @@
     "cross-env": "^7.0.3",
     "css-loader": "^6.7.2",
     "css-minimizer-webpack-plugin": "^4.2.2",
-    "cz-conventional-changelog": "^3.3.0",
     "eslint": "^8.31.0",
     "eslint-plugin-react": "^7.31.11",
     "eslint-webpack-plugin": "^3.2.0",
@@ -84,15 +81,8 @@
     "react-router-dom": "^6.8.0"
   },
   "lint-staged": {
-    "src/**/*.{js,jsx,ts,tsx}": [
-      "eslint --fix",
-      "prettier --write",
-      "git add"
+    "*.{ts,tsx}": [
+      "eslint --fix"
     ]
-  },
-  "husky": {
-    "hooks": {
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
-    }
   }
 }
