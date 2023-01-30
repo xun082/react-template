@@ -7,16 +7,10 @@ import store from "./store";
 import "@/assets/styles/normalize";
 
 const App: React.FC = () => {
-  console.log(11)
+  console.log(11);
 
   return (
-    <Provider store={store}>
-      <BrowserRouter>
-        <Suspense fallback={<div>加载中</div>}>
-          <RouterConfig />
-        </Suspense>
-      </BrowserRouter>
-    </Provider>
+    <Provider store={store}><BrowserRouter><Suspense fallback={<div>加载中</div>}><RouterConfig /></Suspense></BrowserRouter></Provider>
   );
 };
 
