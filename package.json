@@ -33,6 +33,7 @@
     "babel-loader": "^9.1.0",
     "babel-plugin-await-add-trycatch": "^1.0.1",
     "circular-dependency-plugin": "^5.2.2",
+    "commitizen": "^4.3.0",
     "commitlint": "^17.4.2",
     "compression-webpack-plugin": "^10.0.0",
     "copy-webpack-plugin": "^11.0.0",
@@ -40,6 +41,7 @@
     "cross-env": "^7.0.3",
     "css-loader": "^6.7.2",
     "css-minimizer-webpack-plugin": "^4.2.2",
+    "cz-conventional-changelog": "^3.3.0",
     "eslint": "^8.31.0",
     "eslint-plugin-react": "^7.31.11",
     "eslint-webpack-plugin": "^3.2.0",
@@ -85,5 +87,10 @@
       "prettier --write .",
       "eslint --fix"
     ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
