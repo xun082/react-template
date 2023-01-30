@@ -7,7 +7,7 @@ import store from "./store";
 import "@/assets/styles/normalize";
 
 const App: React.FC = () => {
-  console.log(11);
+  console.log(111111);
 
   return (
     <Provider store={store}>
