@@ -6,3 +6,4 @@ env
 postcss.config.js
 config
 babel.config.js
+lint-staged.config.js

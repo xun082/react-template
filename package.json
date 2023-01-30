@@ -7,7 +7,10 @@
   "scripts": {
     "start": "npm run dev",
     "dev": "cross-env NODE_ENV=development webpack serve --config ./config/webpack.dev.js",
-    "build": "cross-env NODE_ENV=production webpack --config ./config/webpack.prod.js"
+    "build": "cross-env NODE_ENV=production webpack --config ./config/webpack.prod.js",
+    "prepare": "husky install",
+    "commit": "git-cz",
+    "lint": "lint-staged"
   },
   "keywords": [],
   "author": "",
@@ -20,6 +23,8 @@
     "@babel/preset-env": "^7.20.2",
     "@babel/preset-react": "^7.18.6",
     "@babel/preset-typescript": "^7.18.6",
+    "@commitlint/cli": "^17.4.2",
+    "@commitlint/config-conventional": "^17.4.2",
     "@nuxt/friendly-errors-webpack-plugin": "^2.5.2",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.10",
     "@types/react": "^18.0.26",
@@ -30,12 +35,14 @@
     "babel-loader": "^9.1.0",
     "babel-plugin-await-add-trycatch": "^1.0.1",
     "circular-dependency-plugin": "^5.2.2",
+    "commitlint": "^17.4.2",
     "compression-webpack-plugin": "^10.0.0",
     "copy-webpack-plugin": "^11.0.0",
     "core-js": "^3.27.1",
     "cross-env": "^7.0.3",
     "css-loader": "^6.7.2",
     "css-minimizer-webpack-plugin": "^4.2.2",
+    "cz-conventional-changelog": "^3.3.0",
     "eslint": "^8.31.0",
     "eslint-plugin-react": "^7.31.11",
     "eslint-webpack-plugin": "^3.2.0",
@@ -43,9 +50,12 @@
     "glob-all": "^3.3.1",
     "html-minimizer-webpack-plugin": "^4.3.0",
     "html-webpack-plugin": "^5.5.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^13.1.0",
     "mini-css-extract-plugin": "^2.7.2",
     "portfinder": "^1.0.32",
     "postcss-loader": "^7.0.2",
+    "prettier": "^2.8.3",
     "purgecss-webpack-plugin": "^5.0.0",
     "react-refresh": "^0.14.0",
     "sass": "^1.56.1",
@@ -72,5 +82,17 @@
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.8.0"
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
   }
 }
