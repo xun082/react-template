@@ -1,4 +1,5 @@
 import React, { Suspense } from "react";
+import type { FunctionComponent } from "react";
 
 import RouterConfig from "./router";
 import { BrowserRouter } from "react-router-dom";
@@ -6,9 +7,7 @@ import { Provider } from "react-redux";
 import store from "./store";
 import "@/assets/styles/normalize";
 
-const App: React.FC = () => {
-  console.log(111333333);
-
+const App: FunctionComponent = () => {
   return (
     <Provider store={store}>
       <BrowserRouter>
