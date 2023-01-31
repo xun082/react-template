@@ -8,8 +8,6 @@ import store from "./store";
 import "@/assets/styles/normalize";
 
 const App: FunctionComponent = () => {
-  console.log(12311);
-
   return (
     <Provider store={store}>
       <BrowserRouter>
