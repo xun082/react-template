@@ -8,7 +8,7 @@ import store from "./store";
 import "@/assets/styles/normalize";
 
 const App: FunctionComponent = () => {
-  console.log(1);
+  console.log(1111111);
 
   return (
     <Provider store={store}>
