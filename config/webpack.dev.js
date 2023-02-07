@@ -17,8 +17,7 @@ const devWebpackConfig = merge(webpackCommonConfig, {
   mode: "development",
   devtool: "source-map",
   devServer: {
-    open: true,
-    host: "localhost",
+    host: "0.0.0.0",
     hot: true,
     compress: true, // 是否启用 gzip 压缩
     historyApiFallback: true, // 解决前端路由刷新404现象
@@ -66,6 +65,7 @@ module.exports = new Promise((resolve, reject) => {
     (error, port) => {
       if (error) reject(error);
       devWebpackConfig.devServer.port = port;
+      devWebpackConfig.devServer.open = `http://localhost:${port}`;
       devWebpackConfig.plugins.push(
         new FriendlyErrorsWebpackPlugin({
           compilationSuccessInfo: {
